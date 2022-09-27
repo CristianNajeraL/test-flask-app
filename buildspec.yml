@@ -3,6 +3,8 @@ version: 0.2
 phases:
   pre_build:
     commands:
+      - echo docker info
+      - docker info
       - aws --version
       - $(aws ecr get-login-password --region ca-central-1 --no-include-email)
       - REPOSITORY_URI=375588229801.dkr.ecr.ca-central-1.amazonaws.com/flask-app
