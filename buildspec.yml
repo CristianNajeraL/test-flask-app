@@ -1,8 +1,12 @@
 version: 0.2
 
 phases:
+  install:
+    runtime-versions:
+      python: 3.9
   build:
     commands:
+      - aws ecr get-login-password --region ca-central-1 | docker login --username AWS --password-stdin 375588229801.dkr.ecr.ca-central-1.amazonaws.com
       - docker build -t flask-app .
       - docker tag flask-app:latest 375588229801.dkr.ecr.ca-central-1.amazonaws.com/flask-app:latest
   post_build:
