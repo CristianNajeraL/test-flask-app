@@ -3,18 +3,15 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - apt-get update && apt-get install -y lcov
-      - apt-get install awscli
-      - apt-get install docker
-      - snap install docker
-      - echo docker info
-      - docker info
-      - aws --version
-      - $(aws ecr get-login-password --region ca-central-1 --no-include-email)
-      - REPOSITORY_URI=375588229801.dkr.ecr.ca-central-1.amazonaws.com/flask-app
+      - echo Logging in to Amazon ECR...
+      - $(aws ecr get-login --no-include-email --region ca-central-1)
   build:
     commands:
-      - docker build -t $REPOSITORY_URI:latest .
+      - echo Build started on `date`
+      - echo Building the Docker image...
+      - docker build -t 375588229801.dkr.ecr.ca-central-1.amazonaws.com/flask-app:latest .
   post_build:
     commands:
-      - docker push $REPOSITORY_URI:latest
+      - echo Build completed on `date`
+      - echo Pushing the Docker image...
+      - docker push 375588229801.dkr.ecr.ca-central-1.amazonaws.com/flask-app:latest
