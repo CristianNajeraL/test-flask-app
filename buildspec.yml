@@ -5,7 +5,8 @@ phases:
     runtime-versions:
       python: 3.9
   pre_build:
-    - aws ecr get-login-password --region ca-central-1 | docker login --username AWS --password-stdin 375588229801.dkr.ecr.ca-central-1.amazonaws.com
+    commands:
+      - aws ecr get-login-password --region ca-central-1 | docker login --username AWS --password-stdin 375588229801.dkr.ecr.ca-central-1.amazonaws.com
   build:
     commands:
       - docker build -t flask-app .
