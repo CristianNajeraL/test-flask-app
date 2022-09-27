@@ -4,8 +4,8 @@ phases:
   pre_build:
     commands:
       - apt-get update && apt-get install -y lcov
-      - apt-get install docker.io
       - apt-get install awscli
+      - apt-get install docker
       - snap install docker
       - echo docker info
       - docker info
