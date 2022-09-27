@@ -6,6 +6,7 @@ phases:
       python: 3.9
   pre_build:
     commands:
+      - pip3 install awscli --upgrade --user
       - aws ecr get-login-password --region ca-central-1 | docker login --username AWS --password-stdin 375588229801.dkr.ecr.ca-central-1.amazonaws.com
   build:
     commands:
