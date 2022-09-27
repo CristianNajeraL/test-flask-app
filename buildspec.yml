@@ -4,8 +4,8 @@ phases:
   pre_build:
     commands:
       - apt-get update && apt-get install -y lcov
-      - sudo apt install docker.io
-      - sudo snap install docker
+      - apt install docker.io
+      - snap install docker
       - echo docker info
       - docker info
       - aws --version
