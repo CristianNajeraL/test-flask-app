@@ -1,17 +1,14 @@
 version: 0.2
 
 phases:
-  install:
-    runtime-versions:
-      python: 3.9
-#  pre_build:
-#    commands:
-#      - pip3 install awscli --upgrade --user
-#      - aws ecr get-login-password --region ca-central-1 | docker login --username AWS --password-stdin 375588229801.dkr.ecr.ca-central-1.amazonaws.com
+  pre_build:
+    commands:
+      - aws --version
+      - $(aws ecr get-login-password --region ca-central-1 --no-include-email)
+      - REPOSITORY_URI=375588229801.dkr.ecr.ca-central-1.amazonaws.com/flask-app
   build:
     commands:
-      - docker build -t flask-app .
-      - docker tag flask-app:latest 375588229801.dkr.ecr.ca-central-1.amazonaws.com/flask-app:latest
+      - docker build -t $REPOSITORY_URI:latest .
   post_build:
     commands:
-      - docker push 375588229801.dkr.ecr.ca-central-1.amazonaws.com/flask-app:latest
+      - docker push $REPOSITORY_URI:latest
