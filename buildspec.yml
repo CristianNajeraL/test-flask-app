@@ -16,7 +16,7 @@ phases:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
       - docker push 375588229801.dkr.ecr.ca-central-1.amazonaws.com/flask-app:latest
-      - printf '[{"name":"reachbc-develop-api","imageUri":"375588229801.dkr.ecr.ca-central-1.amazonaws.com/flask-app:latest"}]' > imagedefinitions.json
+      - printf '[{"name":"reachbc-develop-api","imageUri":"375588229801.dkr.ecr.ca-central-1.amazonaws.com/flask-app:latest"}]' > imadefinitions.json
 artifacts:
   files:
-    - imagedefinitions.json
+    - imadefinitions.json
