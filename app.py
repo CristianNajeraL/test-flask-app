@@ -1,11 +1,28 @@
+import os
 from flask import Flask
+import pandas as pd
+from sqlalchemy import create_engine
+
+
+DB_HOST = os.getenv("DB_HOST")
+DB_NAME = os.getenv("DB_NAME")
+DB_PASSWORD = os.getenv("DB_PASSWORD")
+DB_PORT = os.getenv("DB_PORT")
+DB_USERNAME = os.getenv("DB_USERNAME")
+
+engine = create_engine(f'postgresql://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}')
 
 app = Flask(__name__)
 
 
 @app.route('/')
 def hello_world():
-    return 'Changed'
+    df = pd.read_sql(
+        "select * from public.test",
+        con=engine
+    )
+    names = ', '.join(df['name'].values.tolist())
+    return f'We have this names {names} in the database'
 
 
 if __name__ == '__main__':
