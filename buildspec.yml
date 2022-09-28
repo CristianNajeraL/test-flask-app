@@ -4,13 +4,8 @@ phases:
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
+      - echo `$AWS_DEFAULT_REGION`
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
-      - set URI=$ECR_URL
-      - echo %URI %
-      - set TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
-      - echo %TAG %
-      - set CONTAINER_NAME=$CONTAINER_NAME
-      - echo %CONTAINER_NAME %
   build:
     commands:
       - echo Build started on `date`
@@ -21,7 +16,7 @@ phases:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
       - docker push 375588229801.dkr.ecr.ca-central-1.amazonaws.com/flask-app:latest
-      - printf '[{"name":"reachbc-develop-api","imageUri":"375588229801.dkr.ecr.ca-central-1.amazonaws.com/flask-app:latest"}]' > imadefinitions.json
+      - printf '[{"name":"reachbc-develop-api","imageUri":"375588229801.dkr.ecr.ca-central-1.amazonaws.com/flask-app:latest"}]' > imagedefinitions.json
 artifacts:
   files:
-    - '**/*'
+    - imagedefinitions.json
