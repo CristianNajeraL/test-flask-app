@@ -5,12 +5,12 @@ phases:
     commands:
       - echo Logging in to Amazon ECR...
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
-      - URI=$ECR_URL
-      - echo `URI`
-      - TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
-      - echo `TAG`
-      - CONTAINER_NAME = $CONTAINER_NAME
-      - echo `CONTAINER_NAME`
+      - set URI=$ECR_URL
+      - echo %URI %
+      - set TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - echo %TAG %
+      - set CONTAINER_NAME=$CONTAINER_NAME
+      - echo %CONTAINER_NAME %
   build:
     commands:
       - echo Build started on `date`
